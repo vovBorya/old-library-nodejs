@@ -1,0 +1,9 @@
+{
+  "name": "old-library-nodejs",
+  "version": "1.0.0",
+  "description": "Simple rest api",
+  "main": "server.js",
+  "repository": "https://github.com/vovBorya/old-library-nodejs.git",
+  "author": "vovBorya<vovbor02@gmail.com>",
+  "license": "MIT"
+}
