@@ -1,5 +1,5 @@
 const db = require("../db");
-const Client = db.clients;
+const Employee = db.employee;
 
 // Create and Save a new Tutorial
 exports.create = (req, res) => {
@@ -16,45 +16,47 @@ exports.create = (req, res) => {
         firstName,
         birthDay,
         address,
+        hourSalary,
         phoneNumber,
         email
     } = req.body;
 
-    Client.create({
+    Employee.create({
         lastName,
         firstName,
         birthDay,
         address,
+        hourSalary,
         phoneNumber,
         email
     }).then(data => {
-            res.send(data);
-        })
+        res.send(data);
+    })
         .catch(err => {
             res.status(500).send({
                 message:
-                    err.message || "Some error occurred while creating the Tutorial."
+                    err.message || "Some error occurred while creating the Employee."
             });
         });
 };
 
 // Retrieve all Tutorials from the database.
 exports.findAll = async (req, res) => {
-    const clients = await Client.findAll();
-    res.send(clients);
+    const employee = await Employee.findAll();
+    res.send(employee);
 };
 
 // Find a single Tutorial with an id
 exports.findOne = async (req, res) => {
     const id = req.params.id;
 
-    const client = await Client.findByPk(id);
+    const employee = await Employee.findByPk(id);
 
-    if (client) {
-        res.send(client);
+    if (employee) {
+        res.send(employee);
     } else {
         res.status(500).send({
-            message: "Error retrieving Client with id: " + id
+            message: "Error retrieving Employee with id: " + id
         });
     }
 };
@@ -68,34 +70,27 @@ exports.update = async (req, res) => {
         firstName,
         birthDay,
         address,
+        hourSalary,
         phoneNumber,
         email
     } = req.body;
 
-    console.log({
+    Employee.update({
         lastName,
         firstName,
         birthDay,
         address,
-        phoneNumber,
-        email
-    });
-
-    Client.update({
-        lastName,
-        firstName,
-        birthDay,
-        address,
+        hourSalary,
         phoneNumber,
         email
     }, {
         where: { id }
     }).then(async () => {
-        const client = await Client.findByPk(id);
-        res.send(client);
+        const employee = await Employee.findByPk(id);
+        res.send(employee);
     }).catch(() => {
         res.send({
-            message: `Cannot update Client with id=${id}. Maybe Client was not found!`
+            message: `Cannot update Employee with id=${id}. Maybe Employee was not found!`
         })
     });
 };
@@ -104,14 +99,13 @@ exports.update = async (req, res) => {
 exports.delete = async (req, res) => {
     const id = req.params.id;
 
-    const num = await Client.destroy({where: {id}});
+    const num = await Employee.destroy({where: {id}});
 
-    console.log({num});
-    if (num === 1) {
+    if (num == 1) {
         res.send({id});
     } else {
         res.send({
-            message: `Cannot delete Client with id=${id}. Maybe Client was not found!`
+            message: `Cannot delete Employee with id=${id}. Maybe Employee was not found!`
         });
     }
 };

@@ -1,7 +1,7 @@
 const { DataTypes } = require("sequelize");
 
 module.exports = sequelize => {
-    return sequelize.define("Client", {
+    return sequelize.define("Employee", {
         lastName: {
             type: DataTypes.STRING,
             field: "last_name"
@@ -14,6 +14,10 @@ module.exports = sequelize => {
             type: DataTypes.DATE,
             field: "birth_day"
         },
+        hourSalary: {
+            type: DataTypes.DECIMAL(10,2),
+            field: "hour_salary"
+        },
         address: {
             type: DataTypes.STRING,
         },
@@ -25,7 +29,7 @@ module.exports = sequelize => {
             type: DataTypes.STRING
         }
     }, {
-        tableName: "clients",
+        tableName: "employees",
         timestamps: false
-    });
-};
+    })
+}

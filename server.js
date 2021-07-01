@@ -5,7 +5,9 @@ require("dotenv").config();
 
 const db = require("./src/db");
 const CRUDRouter = require("./src/CRUDRouter");
+
 const clientsController = require("./src/controllers/client.controllers");
+const employeeController = require("./src/controllers/employee.controllers");
 
 const port = process.env.PORT || 3000;
 
@@ -27,6 +29,7 @@ app.use(express.urlencoded({ extended: true }));
 
 db.sequelize.sync();
 
+CRUDRouter(app, employeeController, "employees");
 CRUDRouter(app, clientsController, "clients");
 
 app.listen(port, () => {
