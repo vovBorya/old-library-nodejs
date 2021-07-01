@@ -12,9 +12,6 @@ exports.create = (req, res) => {
     //     return;
     // }
 
-    console.log("lastName > ", req.body.lastName);
-
-    // Create a Tutorial
     const {
         lastName,
         firstName,
@@ -24,16 +21,6 @@ exports.create = (req, res) => {
         email
     } = req.body;
 
-    console.log({
-        lastName,
-        firstName,
-        birthDay,
-        address,
-        phoneNumber,
-        email
-    });
-
-    // Save Tutorial in the database
     Client.create({
         lastName,
         firstName,
@@ -74,16 +61,58 @@ exports.findOne = async (req, res) => {
 };
 
 // Update a Tutorial by the id in the request
-exports.update = (req, res) => {
+exports.update = async (req, res) => {
+    const id = req.params.id;
 
+    const {
+        lastName,
+        firstName,
+        birthDay,
+        address,
+        phoneNumber,
+        email
+    } = req.body;
+
+    console.log({
+        lastName,
+        firstName,
+        birthDay,
+        address,
+        phoneNumber,
+        email
+    });
+
+    Client.update({
+        lastName,
+        firstName,
+        birthDay,
+        address,
+        phoneNumber,
+        email
+    }, {
+        where: { id }
+    }).then(async () => {
+        const client = await Client.findByPk(id);
+        res.send(client);
+    }).catch(() => {
+        res.send({
+            message: `Cannot update Client with id=${id}. Maybe Client was not found!`
+        })
+    });
 };
 
 // Delete a Tutorial with the specified id in the request
-exports.delete = (req, res) => {
+exports.delete = async (req, res) => {
+    const id = req.params.id;
 
-};
+    const num = await Client.destroy({where: {id}});
 
-// Delete all Tutorials from the database.
-exports.deleteAll = (req, res) => {
-
+    console.log({num});
+    if (num === 1) {
+        res.send({id});
+    } else {
+        res.send({
+            message: `Cannot delete Client with id=${id}. Maybe Client was not found!`
+        });
+    }
 };

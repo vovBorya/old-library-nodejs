@@ -4,7 +4,8 @@ const cors = require("cors");
 require("dotenv").config();
 
 const db = require("./src/db");
-const clientsRouter = require("./src/routes/clients.route");
+const CRUDRouter = require("./src/CRUDRouter");
+const clientsController = require("./src/controllers/client.controllers");
 
 const port = process.env.PORT || 3000;
 
@@ -26,7 +27,7 @@ app.use(express.urlencoded({ extended: true }));
 
 db.sequelize.sync();
 
-clientsRouter(app);
+CRUDRouter(app, clientsController, "clients");
 
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
