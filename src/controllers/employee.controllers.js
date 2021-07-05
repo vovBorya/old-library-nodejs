@@ -1,5 +1,5 @@
 const db = require("../db");
-const Employee = db.employee;
+const Employee = db.employees;
 
 // Create and Save a new Tutorial
 exports.create = (req, res) => {

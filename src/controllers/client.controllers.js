@@ -72,15 +72,6 @@ exports.update = async (req, res) => {
         email
     } = req.body;
 
-    console.log({
-        lastName,
-        firstName,
-        birthDay,
-        address,
-        phoneNumber,
-        email
-    });
-
     Client.update({
         lastName,
         firstName,
